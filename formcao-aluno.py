@@ -1,12 +1,12 @@
 __all__ = ['inicializar', 'finalizar', 'add_formatura', 'notify_curso_concluido', 'get_formaturas_by_aluno', 'get_formaturas', 'get_alunos_by_formatura', 'is_concluida']
 
-import json
+import json, atexit
 
 # Variáveis globais
 lista_formaturas = list()
 formaturas_deletadas = list()
 
-PATH = "data/formatura.json"
+PATH = "data/formacao-aluno.json"
 
 # Códigos de erro
 OPERACAO_REALIZADA_COM_SUCESSO = 0
@@ -112,3 +112,12 @@ def exibe_formaturas():
             print(formatura)
     else:
         print("Código de erro: {status}")
+
+# main
+erro = inicializar()
+if erro != 0:
+    print(erro)
+
+
+# Salvar turmas ao final do programa
+atexit.register(finalizar)
