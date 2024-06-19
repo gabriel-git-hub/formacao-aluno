@@ -81,49 +81,56 @@ Esta função recebe nos parâmetros um inteiro repersentando o id do aluno e um
 
 ## get_formaturas_by_aluno
 
-Esta função recebe em seus parâmetros um inteiro representando o id de um aluno. Ela retorna uma tupla com uma mensagem de erro seguida por uma lista todas as formaturas desse aluno.
+Esta função recebe em seus parâmetros um inteiro representando o id de um aluno. Ela retorna uma tupla com uma mensagem de erro seguida por uma lista todas as ids formacoes desse aluno.
 
 ### Requisitos
 
-
-
-## get_curso
-
-Esta função recebe um valor de inteiro em seu parâmetro e busca na base de dados do módulo um curso cujo "id" corresponda ao valor. Esta função retorna uma tupla com uma mensagem de erro seguida de um dicionário com as informações do curso buscado na base de dados caso encontrado ou seguida de None caso contrário.
-
-### Requisitos
-
-- Retorna uma tupla com a mensagem CURSO_NAO_ENCONTRADO e None, em seqência, caso não encontre um curso cujo "id" corresponda ao valor em parametro
-- Retorna uma tupla com a mensagem CURSO_NAO_ATIVO e um dicionário com as informações da base de dados referentes ao curso cuja "id" corresponda ao valor em parâmetro, caso tal curso seja encontrado e esteja listado como um curso desativado
-- Retorna uma tupla com a mensagem OPERACAO_REALIZADA_COM_SUCESSO e um dicionário com as informações da base de dados referentes ao curso cuja "id" corresponda ao valor em parâmetro, caso tal curso seja encontrado e não esteja listado como um curso desativado
+- Retorna uma tupla com a mensagem OPERACAO_REALIZADA_COM_SUCESSO e uma lista com todas as ids de formacoes registradas em formaturas com o id do aluno informada, em sequência
 
 ### Acoplamento
 
-- id: int
-  Variável a ser buscada na base de dados como "id" do curso
+- id_aluno: int
+  inteiro identificador do aluno a ser consultado
 
-## get_cursos
+## get_formaturas
 
-Esta função retorna uma tupla com uma mensagem de erro seguida de uma lista de dicionários com todas as informações de todos os cursos ativos no banco de dados do módulo.
-
-### Requisitos
-
-- Retorna uma tupla com a mensagem OPERACAO_REALIZADA_COM_SUCESSO e uma lista de dicionários com todas as informações de todos os cursos registrados na base de dados como cursos ativos
-
-## del_curso
-
-Esta função recebe como parâmetro um inteiro e busca, então, na base de dados um curso ativo com um "id" correspondente. Caso encontre o curso é registrado como inativo. Retorna uma mensagem de erro o inteiro fornecido nos parâmetros.
+Retorna uma tupla com uma mensagem de erro e uma lista com todas as formaturas registradas, em sequência.
 
 ### Requisitos
 
-- Retorna uma tupla com a mensagem CURSO_NAO_ENCONTRADO e o "id" fornecido nos parâmetros caso não haja um curso com o "id" informado registrado na base de dados do módulo
-- Retorna uma tupla com a mensagem CURSO_NAO_ATIVO e o "id" fornecido nos parâmetros caso haja um curso com o "id" informado registrado na base de dados do módulo como inativo
-- Retorna uma tupla com a mensagem OPERACAO_REALIZADA_COM_SUCESSO e o "id" fornecido nos parâmetros caso haja um curso com o "id" informado registrado na base de dados do módulo como ativo
+- Retorna uma tupla com a mensagem OPERACAO_REALIZADA_COM_SUCESSO e uma lista com todas as formatursas registradas, em sequência
+
+## get_alunos_by_formatura
+
+Esta função recebe em seus parâmetros um inteiro identificador de uma formacao. Esta função retorna uma tupla com uma mensagem de erro e uma lista com todas os ids dos alunos registrados em formaturas com a formacao informada, em sequência.
+
+### Requisitos
+
+- Retorna uma tupla com a mensagem OPERACAO_REALIZADA_COM_SUCESSO e uma lista com todas os ids dos alunos registrados em formaturas com a formacao informada, em sequência
 
 ### Acoplamento
 
-- id: int
-  "id" do curso a ser desativado
+- id_formacao: int
+  inteiro identificador da formacao a ser pesquisada
+
+## is_concluida
+
+Esta função recebe em seus parâmetros um inteiro que representa um id de aluno e im inteiro que representa um id de formacao, em sequencia. A função busca na base de dados e retorna uma tupla com uma mensagem de erro seguida por um valor booleano indicando se o aluno informado concluiu a formacao informada.
+
+### Requisitos
+
+- Retorna uma tupla com a mensagem FORMATURA_NAO_ENCONTRADA e o valor booleano False, em sequência, caso não seja encontrada uma formatura com o id do aluno e o id da formacao informados no banco de dados
+- Retorna uma tupla com a mensagem OPERACAO_REALIZADA_COM_SUCESSO e o valor booleano False, em sequência, caso seja encontrada uma formatura com o id do aluno e o id da formacao informados no banco de dados e seus cursos concluidos não abranjam todos os cursos da formacao
+- Retorna uma tupla com a mensagem OPERACAO_REALIZADA_COM_SUCESSO e o valor booleano True, em sequência, caso seja encontrada uma formatura com o id do aluno e o id da formacao informados no banco de dados e seus cursos concluidos abranjam todos os cursos da formacao
+
+### Acoplamento
+
+- id_aluno: int
+  inteiro identificador do aluno consultado
+- id_formacao: int
+  inteiro identificador da formacao consultada
+
+
 
 
 
