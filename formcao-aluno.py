@@ -1,9 +1,9 @@
 __all__ = ['inicializar', 'finalizar', 'add_formatura', 'notify_curso_concluido', 'get_formaturas_by_aluno', 'get_formaturas', 'get_alunos_by_formatura', 'is_concluida']
 
-import json, atexit
+import json, atexit, formacao
 
 # Variáveis globais
-lista_formaturas = list()
+lista_formatura = list()
 formaturas_deletadas = list()
 
 PATH = "data/formacao-aluno.json"
@@ -86,7 +86,7 @@ def is_concluida(id_aluno: int, id_formacao: int) -> tuple[int, bool]:
     for formatura in lista_formaturas:
         if formatura.get("id_aluno") == id_aluno and formatura.get("id_formacao") == id_formacao:
             # Verifica se todos os cursos da formação foram concluídos
-            _, formacao = get_formacao(id_formacao)
+            _, formacao = formacao.get_formacao(id_formacao)
             cursos_formacao = formacao.get("cursos", [])
             cursos_concluidos = formatura.get("cursos_concluidos", [])
 
@@ -98,13 +98,6 @@ def is_concluida(id_aluno: int, id_formacao: int) -> tuple[int, bool]:
 
 
 # Funções internas
-def exibe_formatura(id_aluno, id_formacao):
-    status, formatura = get_formatura(id_aluno, id_formacao)
-    if status == OPERACAO_REALIZADA_COM_SUCESSO:
-        print(formatura)
-    else:
-        print("Código de erro: {status}")
-
 def exibe_formaturas():
     status, formaturas_ativas = get_formaturas()
     if status == OPERACAO_REALIZADA_COM_SUCESSO:
